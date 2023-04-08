@@ -44,9 +44,9 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder> {
         holder.textView.setText(selectedFile.getName());
 
         if(selectedFile.isDirectory()){
-            holder.imageView.setImageResource(R.drawable.ic_baseline_folder_24);
+            holder.imageView.setImageResource(R.drawable.foldericon);
         }else{
-            holder.imageView.setImageResource(R.drawable.ic_baseline_insert_drive_file_24);
+            holder.imageView.setImageResource(R.drawable.docicon);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

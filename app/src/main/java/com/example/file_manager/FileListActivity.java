@@ -36,7 +36,5 @@ public class FileListActivity extends AppCompatActivity {
         recyclerView.setAdapter(new Myadapter(getApplicationContext(),filesAndFolders));
 
 
-
-
     }
 }
