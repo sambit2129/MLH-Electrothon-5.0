@@ -16,13 +16,26 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.ktx.Firebase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 import java.io.File;
 
 
 public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder> {
 
+    Uri uri;
     Context context;
     File[] filesAndFolders;
+
+    Uri ur;
+    FirebaseDatabase firebaseDatabase;
+    FirebaseStorage firebaseStorage;
 
     public Myadapter(Context context, File[] filesAndFolders) {
         this.context = context;
@@ -84,6 +97,7 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder> {
                 popupMenu.getMenu().add("DELETE");
                 popupMenu.getMenu().add("MOVE");
                 popupMenu.getMenu().add("RENAME");
+                popupMenu.getMenu().add("Upload");
 
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -104,6 +118,47 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder> {
                             Toast.makeText(context.getApplicationContext(),"RENAME",Toast.LENGTH_SHORT).show();
 
                         }
+
+                        if (item.getTitle().equals("UPLOAD")){
+                            Toast.makeText(context.getApplicationContext(),"UPLOADED",Toast.LENGTH_SHORT).show();
+                            final StorageReference reference = firebaseStorage.getReference()
+                                    .child("images")
+                                    .child(System.currentTimeMillis()+"");
+                            reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            Model model = new Model();
+                                            model.setImage(uri.toString());
+
+                                            firebaseDatabase.getReference().child("data")
+                                                    .push()
+                                                    .setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void unused) {
+                                                            Toast.makeText(Myadapter.this, "Upload Successful", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Toast.makeText(MainActivity.this, "upload Error", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                    });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+
+                        if (item.getTitle().equals("Confidential")){
+                            Toast.makeText(context.getApplicationContext(),"UPLOADED",Toast.LENGTH_SHORT).show();
+
+                        }
+
                         return true;
                     }
                 });
