@@ -20,12 +20,11 @@ public class FileListActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         TextView noFilesText = findViewById(R.id.nofiles_textview);
 
-        String path = getIntent().getStringExtra("C:\\Users\\HP\\.android\\avd");
-
+        String path = getIntent().getStringExtra("path");
         File root = new File(path);
         File[] filesAndFolders = root.listFiles();
 
-        if (filesAndFolders==null || filesAndFolders.length==0){
+        if(filesAndFolders==null || filesAndFolders.length ==0){
             noFilesText.setVisibility(View.VISIBLE);
             return;
         }
@@ -33,6 +32,10 @@ public class FileListActivity extends AppCompatActivity {
         noFilesText.setVisibility(View.INVISIBLE);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new Adapter(getApplicationContext(),filesAndFolders));
+        recyclerView.setAdapter(new Myadapter(getApplicationContext(),filesAndFolders));
+
+
+
+
     }
 }
