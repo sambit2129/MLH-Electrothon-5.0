@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "298061328854",
+    "firebase_url": "https://file-manager-30876-default-rtdb.firebaseio.com",
+    "project_id": "file-manager-30876",
+    "storage_bucket": "file-manager-30876.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298061328854:android:95de03e4890f593b797477",
+        "android_client_info": {
+          "package_name": "com.example.file_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298061328854-lcce3p736tco5f00dd3vh4406cqkcu35.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnPLPkwwRz2E4mL3brvsbUq6MktVrKCrA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298061328854-lcce3p736tco5f00dd3vh4406cqkcu35.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
